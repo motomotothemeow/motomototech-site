@@ -9,7 +9,7 @@ import json, re, os, sys, html
 from datetime import datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE = os.path.join(ROOT, 'site')
+SITE = ROOT  # site lives at repo root (GitHub Pages serves /)
 PUB = '/home/hatch/workspace/mmo/monitor/published_videos.json'
 
 SOCIALS = [
