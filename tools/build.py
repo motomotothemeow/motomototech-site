@@ -214,7 +214,16 @@ if __name__ == '__main__':
     only = None
     if '--post' in sys.argv:
         only = sys.argv[sys.argv.index('--post') + 1]
-    posts = load_videos(only)
-    if not posts:
-        print('No matching videos found'); sys.exit(1)
-    build(posts)
+    if only is not None:
+        # single post only — indexes stay as-is (built from all videos)
+        posts = load_videos(only)
+        if not posts:
+            print('No matching videos found'); sys.exit(1)
+        os.makedirs(os.path.join(SITE, 'blog'), exist_ok=True)
+        slug = build_post(posts[0])
+        print(f'Post rebuilt: /blog/{slug}.html (indexes unchanged — run full build to refresh)')
+    else:
+        posts = load_videos()
+        if not posts:
+            print('No matching videos found'); sys.exit(1)
+        build(posts)
